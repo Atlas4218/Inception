@@ -1,0 +1,33 @@
+services:
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - /home/rastie/data/web:/var/www/html
+    env_file:
+      - .env
+    networks:
+      - inception
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    volumes:
+      - /home/rastie/data/web:/var/www/html
+    networks:
+      - inception
+
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    volumes:
+      - /home/rastie/data/database:/var/lib/mysql
+    networks: 
+      - inception
+
+
+networks:
+  inception:
+    name: inception
