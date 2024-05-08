@@ -3,7 +3,8 @@ FROM	debian:bullseye
 RUN		apt update -y && apt upgrade -y && apt install -y\
 			php-fpm \
 			php-mysqli \
-			curl
+			curl \
+			vim
 
 RUN		mkdir /var/run/php
 

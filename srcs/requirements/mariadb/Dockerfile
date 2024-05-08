@@ -1,14 +1,15 @@
 FROM		debian:bullseye
 
-RUN			apt update -y && apt upgrade -y && apt install\
-                mariadb-server -y
+RUN			apt update -y && apt upgrade -y && apt install -y \
+                mariadb-server \
+                vim
 
 COPY        config/50-server.cnf /etc/mysql/mariadb.conf.d/.
 
-COPY        config/init.sql     /etc/mysql/init.sql
+#COPY        config/init.sql     /etc/mysql/init.sql
 RUN         mkdir /run/mysqld
 
-COPY	config/script.sh .
-RUN		chmod +x script.sh
+COPY	config/init.sh .
+RUN		chmod +x init.sh
 
-CMD         ["./script.sh"]
+CMD         ["./init.sh"]
