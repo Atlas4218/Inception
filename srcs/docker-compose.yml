@@ -1,4 +1,32 @@
 services:
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    expose:
+      - "3306"
+    volumes:
+      - /home/rastie/data/database:/var/lib/mysql
+    env_file:
+      - .env
+    networks: 
+      - inception
+    restart: on-failure
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    expose:
+      - "9000"
+    volumes:
+      - /home/rastie/data/web:/var/www/html
+    env_file:
+      - .env
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+    restart: on-failure
+
   nginx:
     build: requirements/nginx
     container_name: nginx
@@ -10,22 +38,9 @@ services:
       - .env
     networks:
       - inception
-
-  wordpress:
-    build: requirements/wordpress
-    container_name: wordpress
-    volumes:
-      - /home/rastie/data/web:/var/www/html
-    networks:
-      - inception
-
-  mariadb:
-    build: requirements/mariadb
-    container_name: mariadb
-    volumes:
-      - /home/rastie/data/database:/var/lib/mysql
-    networks: 
-      - inception
+    depends_on:
+      - wordpress
+    restart: on-failure
 
 
 networks:
