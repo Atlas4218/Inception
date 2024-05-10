@@ -14,4 +14,4 @@ RUN     openssl req -x509 -nodes -out \
         /etc/nginx/ssl/inception.key -subj \
         "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=rastie.42.fr/UID=rastie"
 
-CMD [ "nginx", "-g", "daemon off;" ]
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]

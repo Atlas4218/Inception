@@ -12,4 +12,4 @@ RUN         mkdir /run/mysqld
 COPY	config/init.sh .
 RUN		chmod +x init.sh
 
-CMD         ["./init.sh"]
+ENTRYPOINT         ["./init.sh"]
